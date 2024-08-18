@@ -1,0 +1,9 @@
+services:
+
+  frontend:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./workspace:/home/node/app
+    # network_mode: "host"
