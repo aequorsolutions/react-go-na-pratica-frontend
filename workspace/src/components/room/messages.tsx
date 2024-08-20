@@ -29,8 +29,8 @@ export function ListOfMessages({roomId}: ListofMessagesProps) {
       })
     
     return (
-        !isLoading ? (
-            data?.messages.length === 0 ? <p className="mx-auto mt-10">Nenhuma mensagem recebida até o momento</p> : (
+        !isLoading ? ( 
+            data?.messages.length === 0 ? <p className="mx-auto mt-10"> Nenhuma mensagem recebida até o momento</p> : (
                 <ol className="list-decimal list-outside px-3 space-y-8">
                 
                 {sortedMessages?.map((item) => {

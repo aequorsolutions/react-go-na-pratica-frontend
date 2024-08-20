@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Toaster } from "sonner"
 import {ReactQueryProvider} from "./providers";
+import WebSocketProvider from "./providers/ws-status-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,10 @@ export default function RootLayout({
     <html lang="pt">
       <body className={inter.className}>
         <ReactQueryProvider>
-          {children}
-          <Toaster invert richColors/>
+          <WebSocketProvider>
+            {children}
+            <Toaster invert richColors/>
+          </WebSocketProvider>
         </ReactQueryProvider>
       </body>
     </html>

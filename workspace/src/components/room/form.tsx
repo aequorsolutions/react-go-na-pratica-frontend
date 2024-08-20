@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { ArrowRight} from "lucide-react"
 import { createMessage } from '@/libs/http/create-message'
 import { toast } from 'sonner'
+import { useRef } from 'react'
 
 export function FormSendMessage() {
     const router = useRouter()
@@ -13,11 +14,12 @@ export function FormSendMessage() {
     if (!room_id) {
         router.push('/create-room')
     }
+    const formRef =  useRef<HTMLFormElement>(null);
+
 
     async function handleSubmit(data: FormData){
         // e.preventDefault()
         const message = data.get("message")?.toString()
-        console.log(message)
         
         if (!message || !room_id) {
             return
@@ -25,7 +27,7 @@ export function FormSendMessage() {
 
         try {
             const data = await createMessage({ message, roomId: room_id as string })
-            
+            formRef.current?.reset()
             // router.push(`/room/${data.roomID}`)
         } catch (error) {
             toast.error("Erro ao criar nova mensagem")
@@ -33,7 +35,7 @@ export function FormSendMessage() {
         // router.push("/room/" + theme)
     }
     return (
-        <form action={handleSubmit} className="flex gap-4 flex-col md:flex-row bg-zinc-900 border border-zinc-800 rounded-xl w-full p-2 ring-orange-400 ring-offset-2 ring-offset-zinc-950 focus-within:ring-1">
+        <form ref={formRef} action={handleSubmit} className="flex gap-4 flex-col md:flex-row bg-zinc-900 border border-zinc-800 rounded-xl w-full p-2 ring-orange-400 ring-offset-2 ring-offset-zinc-950 focus-within:ring-1">
             <input 
                     type="text"
                     name= "message"
