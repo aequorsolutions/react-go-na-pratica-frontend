@@ -18,7 +18,7 @@ export function useMessagesWebSockets({
   const queryClient = useQueryClient()
 
   useEffect(() => {
-    const ws = new WebSocket(`wss://bendchat.aequor.solutions/subscribe/${roomId}`)
+    const ws = new WebSocket(`${process.env.NEXT_PUBLIC_BACKEND_WS}/${roomId}`)
 
     ws.onopen = () => {
       console.log('Websocket connected!')
